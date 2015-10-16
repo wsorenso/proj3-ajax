@@ -9,8 +9,7 @@
 
 # Configuration 
 #
-#PYVENV = /usr/bin/env pyvenv-3.4  # This is the version in ix.cs.uoregon.edu
-PYVENV = /usr/bin/python3.2 python3.4-venv # This is the version on my local machine
+PYVENV = /usr/bin/env pyvenv-3.4  # This is the version in ix.cs.uoregon.edu
 
 ##
 ## Install in a new environment:

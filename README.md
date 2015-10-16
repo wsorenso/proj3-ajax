@@ -1,22 +1,29 @@
-# proj3-ajax
-Reimplement the RUSA ACP controle time calculator with flask and ajax
+Here are the ACP rules:
+	The opening times for checkpoints are calculated using the max speeds for each distance interval, as well as the distance from the start of the race that the current checkpoint is.
+	The opening time for a checkpoint would be the sum of the quickest times that each distance interval could be covered up to the interval containing our current checkpoint, plus the remaining distance traveled at the max speed for the last distance interval.
+	Here is the algorithm:
 
-## ACP controle times
+	openingTime(distance) // gives us the opening time for a station at a given distance
 
-That's "controle" with an 'e', because it's French, although "control" is also accepted.  Controls are points where 
-a rider must obtain proof of passage, and control[e] times are the minimum and maximum times by which the rider must
-arrive at the location.  
+	if(distance <= 200)
+		opening_time = distance / 34;
 
-The algorithm for calculating controle times is described at http://www.rusa.org/octime_alg.html . The description is ambiguous, but the examples help.  Part of finishing this project is clarifying anything that is not clear about the requirements, and documenting it clearly. 
+	else if(distance > 200 && distance <= 400)
+		opening_time = 200/34 + ((distance - 200)/32);
 
-We are essentially replacing the calculator at http://www.rusa.org/octime_acp.html .  We can also use that calculator to clarify requirements.  
+	else if(distance > 400 && distance <= 600)
+		opening_time = 200/34 + 200/32 + ((distance - 400)/30);
 
-## AJAX and Flask reimplementation
+	else if(distance > 600 && distance <= 1000)
+		opening_time = 200/34 + 200/32 + 200/30 + ((distance - 600)/28);
 
-The current RUSA controle time calculator is a Perl script that takes an HTML form and emits a text page. The reimplementation will fill in times as the input fields are filled.  Each time a distance is filled in, the corresponding open and close times should be filled in.   If no begin time has been provided, use 0:00 as the begin time. 
+	return opening_time;
 
-I will leave much of the design to you.  
 
-## Testing
+The closing time for the first checkpoint (the start line) is always one hour after the race starts.
+Closing times are calculated in much the same way as start times, except that the minimum speeds are used.
 
-A requirement of this project will be designing a systematic test suite. 
+
+ISSUES:
+	I was never able to get my page runnable on ix and spent the entire project working on that. This means that I have almost no changes made to the original template, and there is no testable functionality. A very frustrating way to spend the last few study sessions!
+
